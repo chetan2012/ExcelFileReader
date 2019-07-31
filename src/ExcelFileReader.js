@@ -1,5 +1,5 @@
 import React from "react";
-import { OutTable, ExcelRenderer } from "react-excel-renderer";
+import { ExcelRenderer } from "react-excel-renderer";
 
 class ExcelFileReader extends React.Component {
   state = {
@@ -18,30 +18,54 @@ class ExcelFileReader extends React.Component {
       }
     });
   };
+
+  toShortFormat = dateObject => {
+    var month_names = [
+      "jan",
+      "feb",
+      "mar",
+      "apr",
+      "may",
+      "jun",
+      "jul",
+      "aug",
+      "sep",
+      "oct",
+      "nov",
+      "dec"
+    ];
+    var day = dateObject.getDate();
+    var month_index = dateObject.getMonth();
+    var year = dateObject.getFullYear();
+    return ` ${day < 10 ? "0" : ""}${day}-${month_names[month_index]}-${year}`;
+  };
   showExcelData = () => {
+    console.log(this.state.excelFileRows);
     return this.state.excelFileRows.map((rowValue, parentIndex) => {
       if (
         rowValue.length === 5 ||
         (rowValue.length === 4 && parentIndex % 2 !== 0)
       ) {
         return (
-          <tr key = {parentIndex}>
+          <tr key={parentIndex}>
             {rowValue.map((value, childIndex) => {
-              if (rowValue.length === 5) {
+              if (rowValue.length === 5 && parentIndex % 2 === 0) {
                 if (parentIndex === 2 && childIndex === 4) {
                   return (
-                    <td key = {childIndex}>
-                      {new Date(
-                        Math.round((value - 25569) * 86400 * 1000)
-                      ).toLocaleString()}
+                    <td key={childIndex}>
+                      {
+                        this.toShortFormat(
+                        new Date(Math.round((value - 25569) * 86400 * 1000))
+                        )
+                      }
                     </td>
                   );
                 } else {
-                  return <td key = {childIndex}>{value}</td>;
+                  return <td key={childIndex}>{value}</td>;
                 }
-              } else if (rowValue.length == 4 && parentIndex % 2 != 0) {
+              } else if (rowValue.length === 4 && parentIndex % 2 !== 0) {
                 if (childIndex > 1) {
-                  return <td key = {childIndex}>{value}</td>;
+                  return <td key={childIndex}>{value}</td>;
                 }
               }
             })}
