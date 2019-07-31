@@ -31,13 +31,26 @@ describe("Test Cases For ExcelFileReader", () => {
         const excelFileData = [
             ['', '', 'Name', '', 'Abc'],
             ['', '', 'ID', '', '12345'],
-            ['', '', 'Date', '', '9/4/1990, 5:30:00 AM'],
+            ['', '', 'Date', '', '33120'],
             ['level1', 'sub1', 'A1', '1']
         ];
         wrapper.setState({excelFileRows: excelFileData})
         wrapper.instance().showExcelData();
         expect(wrapper.find("td")).toBeDefined();
     });
+
+    it("should check < 10 condition for the initial digit ahead of day", () => {
+        const excelFileData = [
+            ['', '', 'Name', '', 'Abc'],
+            ['', '', 'ID', '', '12345'],
+            ['', '', 'Date', '', '9/4/1990, 5:30:00 AM'],
+            ['level1', 'sub1', 'A1', '1']
+        ];
+        wrapper.setState({excelFileRows: excelFileData})
+        wrapper.instance().showExcelData();
+        expect(wrapper.find("tr")).toBeDefined();
+    });
+
     it("should check first if condition", () => {
         const excelFileData = [
             ['', '', 'Name']
