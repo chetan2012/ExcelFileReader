@@ -6,7 +6,7 @@ Name  ABC
 
 Registration date 04-sep-1990
 
-a2 1
+a2 2
 
 B2 90
 
