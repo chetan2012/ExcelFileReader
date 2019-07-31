@@ -1,4 +1,4 @@
-import ExcelFileReader from "./excel";
+import ExcelFileReader from "./ExcelFileReader";
 import React from "react";
 import { shallow } from "enzyme";
 
@@ -14,7 +14,11 @@ describe("Test Cases For ExcelFileReader", () => {
             target: {
                 files : [
                     {
-                        name : "Upload.xlsx"
+                        name: "Upload.xlsx",
+                        size: 10282,
+                        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        webkitRelativePath: "",
+                        lastModified: 1564558790445
                     }
                 ]
             }
